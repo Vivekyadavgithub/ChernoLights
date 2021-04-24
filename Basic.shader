@@ -1,5 +1,5 @@
 #shader vertex
-#version 330 core
+#version 430 core
 
 layout(location = 0) in vec3 position;
 layout(location = 1) in vec3 aNormal;
@@ -18,12 +18,12 @@ void main()
 };
 
 #shader fragment
-#version 330 core
+#version 430 core
 
 layout(location = 0) out vec4 FragColor;
 vec3 lightPos = vec3(1.0f, 1.0f, 0.3f);
 vec3 objectColor = vec3(0.9f, 0.9f, 0.5f);
-vec3 lightColor = vec3(0.0f, 1.0f, 1.0f);
+vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
 in vec3 FragPos;
 in vec3 Normal;
 

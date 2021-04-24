@@ -24,7 +24,7 @@ public:
     std::vector<Vertex>       vertices;
     std::vector<unsigned int> indices;
     std::vector<Textureinfo>      textures;
-
+    Mesh() {}
     Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Textureinfo> textures);
     void Draw(Shader& shader);
 private:
