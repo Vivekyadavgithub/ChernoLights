@@ -1,5 +1,0 @@
-﻿  Mesh.cpp
-C:\VisualStudio_Projects\Cherno\Cherno2D\Cherno2D\Mesh.cpp(34,68): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-  ModelLoading.cpp
-  Generating Code...
-  Cherno2D.vcxproj -> C:\VisualStudio_Projects\Cherno\Cherno2D\x64\Debug\Cherno2D.exe
