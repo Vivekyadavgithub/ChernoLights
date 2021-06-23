@@ -113,8 +113,12 @@
     <ResourceCompile Include="Cherno2D.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Basic.shader" />
-    <None Include="lights.shader" />
+    <None Include="Basicfragment.glsl" />
+    <None Include="Basicvertex.glsl" />
+    <None Include="lightsfragment.glsl" />
+    <None Include="lightsvertex.glsl" />
+    <None Include="skyboxfragment.glsl" />
+    <None Include="skyboxvertex.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\container.jpg" />

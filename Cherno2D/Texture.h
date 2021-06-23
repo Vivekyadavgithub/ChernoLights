@@ -1,4 +1,5 @@
 #pragma once
+#include <vector>
 
 #include "Renderer.h"
 class Texture
@@ -11,9 +12,11 @@ private:
 
 public:
 	Texture(const std::string& path);
+	Texture(std::vector<std::string> faces);
 	~Texture();
 
 	void Bind(unsigned int slot = 0) const;
+	void BindCubeMap(unsigned int slot = 0) const;
 	void Unbind() const;
 
 	inline int GetWidth() const { return m_Width;  }

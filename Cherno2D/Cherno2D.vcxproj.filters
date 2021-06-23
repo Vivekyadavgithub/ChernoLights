@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{0d117cf9-0e0d-44a7-aabd-224ee944c1ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -75,11 +78,23 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Basic.shader">
-      <Filter>Resource Files</Filter>
+    <None Include="lightsvertex.glsl">
+      <Filter>Shaders</Filter>
     </None>
-    <None Include="lights.shader">
-      <Filter>Resource Files</Filter>
+    <None Include="lightsfragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Basicvertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Basicfragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="skyboxvertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="skyboxfragment.glsl">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

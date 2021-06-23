@@ -4,15 +4,22 @@
 #include <fstream>
 #include <string>
 #include <sstream>
+#include <algorithm>
 
 #include "Renderer.h"
 
-Shader::Shader(const std::string& filepath)
+Shader::Shader(const std::string& filepath, const std::string& shaderName)
 	: 
 	m_FilePath(filepath),
+	m_shaderName(shaderName),
 	m_RendererID(0)
 {
-    ShaderProgramSource source = ParseShader();
+	m_FilePath += '/';
+	ShaderProgramSource source;
+	std::string vertPath = m_FilePath + m_shaderName + "vertex.glsl";
+	std::string fragPath = m_FilePath + m_shaderName + "fragment.glsl";
+	source.VertexSource = ParseShader(vertPath);
+	source.FragmentSource = ParseShader(fragPath);
 	m_RendererID = CreateShader(source.VertexSource, source.FragmentSource);
 }
 
@@ -41,34 +48,16 @@ void Shader::SetUniform1f(const std::string& name, float value)
 	glUniform1f(GetUniformLocation(name), value);
 }
 
-ShaderProgramSource Shader::ParseShader()
+std::string Shader::ParseShader(std::string& shader)
 {
-	std::ifstream stream(m_FilePath);
-
-	enum class ShaderType
-	{
-		NONE = -1, VERTEX = 0, FRAGMENT = 1
-	};
-
+	std::ifstream stream(shader);
 	std::string line;
-	std::stringstream ss[2];
-	ShaderType type = ShaderType::NONE;
+	std::stringstream ss;
 	while (getline(stream, line))
 	{
-		if (line.find("#shader") != std::string::npos)
-		{
-			if (line.find("vertex") != std::string::npos)
-				type = ShaderType::VERTEX;
-			else if (line.find("fragment") != std::string::npos)
-				type = ShaderType::FRAGMENT;
-		}
-		else
-		{
-			ss[(int)type] << line << "\n";
-		}
-	}
-
-	return { ss[0].str(), ss[1].str() };
+			ss << line << "\n";
+	}	
+	return  ss.str();
 
 }
 

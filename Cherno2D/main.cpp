@@ -29,7 +29,7 @@ int main()
 	if (!glfwInit()) return -1;
  
 	
-	window = glfwCreateWindow(1980, 1080, "hello", NULL, NULL);
+	window = glfwCreateWindow(1980, 1080, "Opengl Viewer", NULL, NULL);
 	
 	if (!window)
 	{
@@ -90,7 +90,51 @@ int main()
 			-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f, 0.0f, 1.0f,
 			-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f, 1.0f, 1.0f
 		};
+		
+		float skyboxVertices[] = {
+			// positions          
+			-1.0f,  1.0f, -1.0f,
+			-1.0f, -1.0f, -1.0f,
+			 1.0f, -1.0f, -1.0f,
+			 1.0f, -1.0f, -1.0f,
+			 1.0f,  1.0f, -1.0f,
+			-1.0f,  1.0f, -1.0f,
 
+			-1.0f, -1.0f,  1.0f,
+			-1.0f, -1.0f, -1.0f,
+			-1.0f,  1.0f, -1.0f,
+			-1.0f,  1.0f, -1.0f,
+			-1.0f,  1.0f,  1.0f,
+			-1.0f, -1.0f,  1.0f,
+
+			 1.0f, -1.0f, -1.0f,
+			 1.0f, -1.0f,  1.0f,
+			 1.0f,  1.0f,  1.0f,
+			 1.0f,  1.0f,  1.0f,
+			 1.0f,  1.0f, -1.0f,
+			 1.0f, -1.0f, -1.0f,
+
+			-1.0f, -1.0f,  1.0f,
+			-1.0f,  1.0f,  1.0f,
+			 1.0f,  1.0f,  1.0f,
+			 1.0f,  1.0f,  1.0f,
+			 1.0f, -1.0f,  1.0f,
+			-1.0f, -1.0f,  1.0f,
+
+			-1.0f,  1.0f, -1.0f,
+			 1.0f,  1.0f, -1.0f,
+			 1.0f,  1.0f,  1.0f,
+			 1.0f,  1.0f,  1.0f,
+			-1.0f,  1.0f,  1.0f,
+			-1.0f,  1.0f, -1.0f,
+
+			-1.0f, -1.0f, -1.0f,
+			-1.0f, -1.0f,  1.0f,
+			 1.0f, -1.0f, -1.0f,
+			 1.0f, -1.0f, -1.0f,
+			-1.0f, -1.0f,  1.0f,
+			 1.0f, -1.0f,  1.0f
+		};
 		unsigned int indices[] = {
 			0, 1, 2,
 			2, 3, 0
@@ -109,28 +153,55 @@ int main()
 		IndexBuffer ibo(indices, 6);
 
 		
-		Shader shader("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/Basic.shader");
+		Shader shader("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D", "Basic");
 		shader.Bind();
 		shader.Unbind();
 		//shader.SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
-		Shader lightShader("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/lights.shader");
+		Shader lightShader("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D", "lights");
 		lightShader.Bind();
 		lightShader.Unbind();
 		shader.Bind();
 		Texture texture("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/container.jpg");
-		texture.Bind();
-		//shader.SetUniform1i("u_Texture", 0);
-
+		texture.Bind(0);
+		//shader.SetUniform1i("ourTexture", 0);
 		va.Unbind();
 		vbo.Unbind();
 		ibo.Unbind();
 		shader.Unbind();
+		lightShader.Unbind();
+
+		VertexArray skybox;
+		VertexBuffer skyBuffer(skyboxVertices, 6 * 6 * 3 * sizeof(float));
+		VertexBufferLayout skyboxLayout;
+		skyboxLayout.Push<float>(3);
+		skybox.AddBuffer(skyBuffer, skyboxLayout);
+		Shader skyboxShader("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D", "skybox");
+		std::vector<std::string> faces(6);
+
+		faces[0] = "C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/skybox/right.jpg";
+		faces[1] = "C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/skybox/left.jpg";
+		faces[2] = "C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/skybox/top.jpg";
+		faces[3] = "C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/skybox/bottom.jpg";
+		faces[4] = "C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/skybox/front.jpg";
+		faces[5] = "C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/skybox/back.jpg";
+
+		Texture skyboxTex(faces);
+		skyboxTex.Unbind();
+		skybox.Unbind();
+		skyBuffer.Unbind();
+		skyboxShader.Unbind();
 
 		Renderer renderer;
 		shader.Bind();
 		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)1980 / (float)1080, 0.1f, 100.0f);
 	    shader.SetUniformMat4("projection", projection);
 		shader.Unbind();
+
+		skyboxShader.Bind();
+		skyboxShader.SetUniformMat4("projection", projection);
+		skyboxShader.SetUniform1i("skybox", 0);
+		skyboxShader.Unbind();
+
 		float angle = 20.0f * 3;
 		while (!glfwWindowShouldClose(window))
 		{
@@ -167,6 +238,15 @@ int main()
 			
 			renderer.Draw(va, ibo, lightShader);
 			lightShader.Unbind();
+			
+			glDepthFunc(GL_LEQUAL);
+			skyboxShader.Bind();
+			view = glm::mat4(glm::mat3(view));
+			skyboxShader.SetUniformMat4("view", view);
+			skyboxTex.BindCubeMap(0);
+			renderer.Draw(skybox, ibo, skyboxShader);
+			glDepthFunc(GL_LESS);
+
 			glfwSwapBuffers(window);
 			glfwPollEvents();
 		}
