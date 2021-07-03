@@ -42,6 +42,12 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -71,6 +77,12 @@
     <ClInclude Include="Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Cherno2D.rc">
@@ -94,6 +106,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="skyboxfragment.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="ModelShadervertex.glsl">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="ModelShaderfragment.glsl">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

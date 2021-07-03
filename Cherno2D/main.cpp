@@ -15,7 +15,7 @@
 #include "VertexArray.h" 
 #include "Shader.h"
 #include "Texture.h"
-
+#include "Model.h"
 
 void processInput(GLFWwindow* window);
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
@@ -161,8 +161,8 @@ int main()
 		lightShader.Bind();
 		lightShader.Unbind();
 		shader.Bind();
-		Texture texture("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/container.jpg");
-		texture.Bind(0);
+		//Texture texture("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/container.jpg");
+		//texture.Bind(0);
 		//shader.SetUniform1i("ourTexture", 0);
 		va.Unbind();
 		vbo.Unbind();
@@ -193,7 +193,7 @@ int main()
 
 		Renderer renderer;
 		shader.Bind();
-		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)1980 / (float)1080, 0.1f, 100.0f);
+		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)1080 / (float)720 , 0.1f, 100.0f);
 	    shader.SetUniformMat4("projection", projection);
 		shader.Unbind();
 
@@ -201,6 +201,10 @@ int main()
 		skyboxShader.SetUniformMat4("projection", projection);
 		skyboxShader.SetUniform1i("skybox", 0);
 		skyboxShader.Unbind();
+
+		
+		Model assimpModel("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/backpack/backpack.obj");
+		Shader assimpModelShader("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D", "ModelShader");
 
 		float angle = 20.0f * 3;
 		while (!glfwWindowShouldClose(window))
@@ -246,6 +250,13 @@ int main()
 			skyboxTex.BindCubeMap(0);
 			renderer.Draw(skybox, ibo, skyboxShader);
 			glDepthFunc(GL_LESS);
+			model = glm::mat4(1.0f);
+			model = glm::scale(model, { 0.1, 0.1, 0.1 });
+			assimpModelShader.SetUniformMat4("model", model);
+			assimpModelShader.SetUniformMat4("projection", projection);
+			assimpModelShader.SetUniformMat4("view", view);
+			
+			assimpModel.Draw(assimpModelShader);
 
 			glfwSwapBuffers(window);
 			glfwPollEvents();

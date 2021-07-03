@@ -58,14 +58,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\visual c++\Dependencies\glm;D:\visual c++\Dependencies\glfw-3.3.2\include;D:\visual c++\Dependencies\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\visual c++\Dependencies\assimp-5.0.1\include;D:\visual c++\Dependencies\glm;D:\visual c++\Dependencies\glfw-3.3.2\include;D:\visual c++\Dependencies\glew\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>D:\visual c++\Dependencies\glew\lib\Release\x64;D:\visual c++\Dependencies\glfw-3.3.2\build\src\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;glew32s.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>D:\visual c++\Dependencies\assimp-5.0.1\Lib;D:\visual c++\Dependencies\glew\lib\Release\x64;D:\visual c++\Dependencies\glfw-3.3.2\build\src\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>assimp-vc142-mtd.lib;glfw3.lib;glew32s.lib;opengl32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -91,6 +91,8 @@
   <ItemGroup>
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -100,6 +102,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IndexBuffer.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Shader.h" />
@@ -117,6 +121,8 @@
     <None Include="Basicvertex.glsl" />
     <None Include="lightsfragment.glsl" />
     <None Include="lightsvertex.glsl" />
+    <None Include="ModelShaderfragment.glsl" />
+    <None Include="ModelShadervertex.glsl" />
     <None Include="skyboxfragment.glsl" />
     <None Include="skyboxvertex.glsl" />
   </ItemGroup>
