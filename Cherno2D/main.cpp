@@ -29,7 +29,7 @@ int main()
 	if (!glfwInit()) return -1;
  
 	
-	window = glfwCreateWindow(1980, 1080, "Opengl Viewer", NULL, NULL);
+	window = glfwCreateWindow(1920, 1080, "Opengl Viewer", NULL, NULL);
 	
 	if (!window)
 	{
@@ -193,7 +193,7 @@ int main()
 
 		Renderer renderer;
 		shader.Bind();
-		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)1080 / (float)720 , 0.1f, 100.0f);
+		glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)1980 / (float)1080, 0.1f, 100.0f);
 	    shader.SetUniformMat4("projection", projection);
 		shader.Unbind();
 
@@ -233,16 +233,26 @@ int main()
 			shader.Unbind();
 			
 			lightShader.Bind();
-			
+			//model = glm::mat4(1.0f);
 			model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
-			model = glm::scale(model, {0.2, 0.2, 0.2});
+			model = glm::scale(model, { 0.2, 0.2, 0.2 });
 			lightShader.SetUniformMat4("model", model);
 			lightShader.SetUniformMat4("projection", projection);
 			lightShader.SetUniformMat4("view", view);
 			
 			renderer.Draw(va, ibo, lightShader);
 			lightShader.Unbind();
+			assimpModelShader.Bind();
+			model = glm::mat4(1.0f);
+			model = glm::scale(model, { 1.0, 1.0, 1.0 });
+			model = glm::translate(model, glm::vec3(1.0f, 1.0f, -3.0f));
 			
+			assimpModelShader.SetUniformMat4("model", model);
+			assimpModelShader.SetUniformMat4("projection", projection);
+			assimpModelShader.SetUniformMat4("view", view);
+
+			assimpModel.Draw(assimpModelShader);
+			assimpModelShader.Unbind();
 			glDepthFunc(GL_LEQUAL);
 			skyboxShader.Bind();
 			view = glm::mat4(glm::mat3(view));
@@ -250,13 +260,7 @@ int main()
 			skyboxTex.BindCubeMap(0);
 			renderer.Draw(skybox, ibo, skyboxShader);
 			glDepthFunc(GL_LESS);
-			model = glm::mat4(1.0f);
-			model = glm::scale(model, { 0.1, 0.1, 0.1 });
-			assimpModelShader.SetUniformMat4("model", model);
-			assimpModelShader.SetUniformMat4("projection", projection);
-			assimpModelShader.SetUniformMat4("view", view);
 			
-			assimpModel.Draw(assimpModelShader);
 
 			glfwSwapBuffers(window);
 			glfwPollEvents();
@@ -279,4 +283,5 @@ void processInput(GLFWwindow* window)
 		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	std::cout << cameraPos.x << " " << cameraPos.y << " " << cameraPos.z << "\n";
 }
