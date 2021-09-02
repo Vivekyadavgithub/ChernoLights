@@ -95,7 +95,13 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SkyBox.cpp" />
+    <ClCompile Include="SphereDrawing.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Vendor\ImGUI\imgui.cpp" />
+    <ClCompile Include="Vendor\ImGUI\imgui_demo.cpp" />
+    <ClCompile Include="Vendor\ImGUI\imgui_draw.cpp" />
+    <ClCompile Include="Vendor\ImGUI\imgui_impl_glfw_gl3.cpp" />
     <ClCompile Include="VertexArray.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexBufferLayout.cpp" />
@@ -107,8 +113,17 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="SkyBox.h" />
+    <ClInclude Include="SphereDrawing.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Vendor\ImGUI\imconfig.h" />
+    <ClInclude Include="Vendor\ImGUI\imgui.h" />
+    <ClInclude Include="Vendor\ImGUI\imgui_impl_glfw_gl3.h" />
+    <ClInclude Include="Vendor\ImGUI\imgui_internal.h" />
+    <ClInclude Include="Vendor\ImGUI\stb_rect_pack.h" />
+    <ClInclude Include="Vendor\ImGUI\stb_textedit.h" />
+    <ClInclude Include="Vendor\ImGUI\stb_truetype.h" />
     <ClInclude Include="VertexArray.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VertexBufferLayout.h" />
@@ -123,6 +138,8 @@
     <None Include="lightsvertex.glsl" />
     <None Include="ModelShaderfragment.glsl" />
     <None Include="ModelShadervertex.glsl" />
+    <None Include="Simplefragment.glsl" />
+    <None Include="Simplevertex.glsl" />
     <None Include="skyboxfragment.glsl" />
     <None Include="skyboxvertex.glsl" />
   </ItemGroup>

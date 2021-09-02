@@ -24,9 +24,9 @@ void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	//glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr);
-	shader.Unbind();
-	va.Unbind();
-	ib.Unbind();
+	//shader.Unbind();
+	//va.Unbind();
+	//ib.Unbind();
 }
 
 void Renderer::Clear() const
