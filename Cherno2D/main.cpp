@@ -61,7 +61,7 @@ int main()
 	
 	std::cout << glGetString(GL_VERSION);
 	
-	{
+	
 		float positions[] = {
 			-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 1.0f, 1.0f,
 			 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 1.0f, 0.0f,
@@ -253,6 +253,7 @@ int main()
 		ImVec4 clear_color = ImVec4(0.0f, 0.0f, 0.0f, 1.00f);
 
 		float angle = 20.0f * 3;
+		bool loadModel = false;
 		SphereDrawing sphereDrawing(36, 18, 0.5f);
 		sphereDrawing.setShaderPath("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D", "Simple");
 		
@@ -336,18 +337,20 @@ int main()
 				model = glm::translate(model, { 3.0f, 0.0f, 0.0f });
 			}
 			lightShader.Unbind();
-			assimpModelShader.Bind();
-			model = glm::mat4(1.0f);
-			model = glm::scale(model, { 1.0, 1.0, 1.0 });
-			model = glm::translate(model, glm::vec3(1.0f, 1.0f, -3.0f));
 			
-			assimpModelShader.SetUniformMat4("model", model);
-			assimpModelShader.SetUniformMat4("projection", projection);
-			assimpModelShader.SetUniformMat4("view", view);
+			if (loadModel) {
+				assimpModelShader.Bind();
+				model = glm::mat4(1.0f);
+				model = glm::scale(model, { 1.0, 1.0, 1.0 });
+				model = glm::translate(model, glm::vec3(1.0f, 1.0f, -3.0f));
 
-			assimpModel.Draw(assimpModelShader);
-			assimpModelShader.Unbind();
+				assimpModelShader.SetUniformMat4("model", model);
+				assimpModelShader.SetUniformMat4("projection", projection);
+				assimpModelShader.SetUniformMat4("view", view);
 
+				assimpModel.Draw(assimpModelShader);
+				assimpModelShader.Unbind();
+			}
 			model = glm::mat4(1.0f);
 			model = glm::scale(model, { 1.0, 1.0, 1.0 });
 			model = glm::translate(model, glm::vec3(-2.0f, 0.0f, -5.0f));
@@ -363,13 +366,13 @@ int main()
 			renderer.Draw(skybox, ibo, skyboxShader);
 			glDepthFunc(GL_LESS);
 
+			
+
 			{
 				ImGui::Begin("s debug");
 				static float f = 0.0f;
 				static int counter = 0;
-				//ImGui::Text("Hello, world!");                           // Display some text (you can use a format string too)
 				ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f    
-				//ImGui::SliderFloat3("Object Color", &color[0], -10.0f, 10.0f); // Edit 3 floats representing a color
 				ImGui::ColorEdit3("Light Ambient", &lightAmb[0]);
 				ImGui::SliderFloat3("Light position", &lightPosition[0], -10.0f, 10.0f);
 				ImGui::SliderFloat3("Position", &Position[0], -10.0f, 10.0f);
@@ -389,6 +392,10 @@ int main()
 						cameraFront.x = cameraPos.x / 3;
 					}
 					cameraPos.z = sqrt(9.0f - (cameraPos.x * cameraPos.x));
+				}
+				if (ImGui::Button("Load BackPack", { 30, 20 })) {
+					
+					loadModel = !loadModel;
 				}
 				if (ImGui::Button("cameraFacex++", { 100, 50 }))
 				{
@@ -436,7 +443,7 @@ int main()
 			ImGui_ImplGlfwGL3_RenderDrawData(ImGui::GetDrawData());
 			glfwSwapBuffers(window);
 			glfwPollEvents();
-		}
+		
 	}
 	ImGui_ImplGlfwGL3_Shutdown();
 	ImGui::DestroyContext();

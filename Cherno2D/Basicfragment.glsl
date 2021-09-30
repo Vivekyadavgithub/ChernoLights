@@ -28,20 +28,19 @@ float texShine = 64.0f;
 float constant = 1.0f;
 float linea = 0.09f;
 float quadratic = 0.032f;
-float position;
+
+
 vec3 CalcPointLight(vec3 lightPos, vec3 norm, vec3 FragPos ,vec3 viewDir){
     vec3 ambient = light.ambient * vec3(texture(material.diffuse, TexCoord));
-    // diffuse 
     
     vec3 lightDir = normalize(lightPos - FragPos);
     float diff = max(dot(norm, lightDir), 0.0);
-    //vec3 diffuse = /*lightColor * (diff * material.diffuse);*/ light.diffuse * (diff * material.diffuse);
+
     vec3 diffuse = light.diffuse * diff * vec3(texture(material.diffuse, TexCoord)); 
-    // specular
     
     vec3 reflectDir = reflect(-lightDir, norm);  
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), material.shininess);
-    vec3 specular = /*lightColor * (spec * material.specular);*/ light.specular * spec * vec3(texture(material.specular, TexCoord));  
+    vec3 specular = light.specular * spec * vec3(texture(material.specular, TexCoord));  
     
 	float distance = length(lightPos - FragPos);
 	float attenuation = 1.0 / (constant + linea * distance + quadratic * (distance * distance));
