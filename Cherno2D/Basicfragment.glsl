@@ -14,7 +14,7 @@ struct Light {
 };
 
 uniform Light light;
-
+uniform int lightCount;
 uniform vec3 lightPos[10];
 
 uniform vec3 viewPos;
@@ -56,7 +56,7 @@ void main()
     vec3 viewDir = normalize(viewPos - FragPos);
 
     vec3 result = {0, 0, 0};
-    for(int i = 0; i < 10; i++)
+    for(int i = 0; i < lightCount; i++)
         result += CalcPointLight(lightPos[i], norm, FragPos, viewDir);
     FragColor = vec4(result, 1.0);
 	
