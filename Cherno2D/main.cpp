@@ -1,5 +1,5 @@
 #define GLEW_STATIC
-#include <GL/glew.h>
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <iostream>
@@ -54,9 +54,10 @@ int main()
 	
 	glfwMakeContextCurrent(window);
 
-	if (glewInit() != GLEW_OK)
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
-		std::cout << "Error!\n" << std::endl;
+		std::cout << "Failed to initialize GLAD" << std::endl;
+		return -1;
 	}
 	
 	std::cout << glGetString(GL_VERSION);
@@ -168,17 +169,17 @@ int main()
 	IndexBuffer ibo(indices, 6);
 
 		
-	Shader shader("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D", "Basic");
+	Shader shader(".", "Basic");
 	shader.Bind();
 	shader.Unbind();
 	//shader.SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 1.0f);
-	Shader lightShader("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D", "lights");
+	Shader lightShader(".", "lights");
 	lightShader.Bind();
 	lightShader.Unbind();
 	shader.Bind();
 		
-	Texture texture("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/container.png");
-	Texture specularMap("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/container_specular.png");
+	Texture texture("res/container.png");
+	Texture specularMap("res/container_specular.png");
 	texture.Bind(0);
 	shader.SetUniform1i("material.diffuse", 0);
 	texture.Unbind();
@@ -196,27 +197,19 @@ int main()
 	VertexBufferLayout skyboxLayout;
 	skyboxLayout.Push<float>(3);
 	skybox.AddBuffer(skyBuffer, skyboxLayout);
-	Shader skyboxShader("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D", "skybox");
+	Shader skyboxShader(".", "skybox");
 	std::vector<std::string> faces(6);
 	std::vector<std::string> faces2(6);
 
-	faces[0] = "C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/skybox/right.jpg";
-	faces[1] = "C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/skybox/left.jpg";
-	faces[2] = "C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/skybox/top.jpg";
-	faces[3] = "C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/skybox/bottom.jpg";
-	faces[4] = "C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/skybox/front.jpg";
-	faces[5] = "C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/skybox/back.jpg";
+	faces[0] = "res/skybox/right.jpg";
+	faces[1] = "res/skybox/left.jpg";
+	faces[2] = "res/skybox/top.jpg";
+	faces[3] = "res/skybox/bottom.jpg";
+	faces[4] = "res/skybox/front.jpg";
+	faces[5] = "res/skybox/back.jpg";
 
-	faces2[0] = "D:/git/Syl3D/Syl3D/resources/skyboxes/epicbluesunset/right.png";
-	faces2[1] = "D:/git/Syl3D/Syl3D/resources/skyboxes/epicbluesunset/left.png";
-	faces2[2] = "D:/git/Syl3D/Syl3D/resources/skyboxes/epicbluesunset/top.png";
-	faces2[3] = "D:/git/Syl3D/Syl3D/resources/skyboxes/epicbluesunset/bottom.png";
-	faces2[4] = "D:/git/Syl3D/Syl3D/resources/skyboxes/epicbluesunset/front.png";
-	faces2[5] = "D:/git/Syl3D/Syl3D/resources/skyboxes/epicbluesunset/back.png";
 	Texture skyboxTex(faces);
 	skyboxTex.Unbind();
-	Texture skyboxTex2(faces2);
-	skyboxTex2.Unbind();
 	skybox.Unbind();
 	skyBuffer.Unbind();
 	skyboxShader.Unbind();
@@ -233,8 +226,8 @@ int main()
 	skyboxShader.Unbind();
 
 		
-	Model assimpModel("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D/res/backpack/backpack.obj");
-	Shader assimpModelShader("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D", "ModelShader");
+	Model assimpModel("res/backpack/backpack.obj");
+	Shader assimpModelShader(".", "ModelShader");
 
 	ImGui::CreateContext();
 	ImGui_ImplGlfwGL3_Init(window, true);
@@ -257,7 +250,7 @@ int main()
 	float angle = 20.0f * 3;
 	bool loadModel = false;
 	SphereDrawing sphereDrawing(36, 18, 0.5f);
-	sphereDrawing.setShaderPath("C:/VisualStudio_Projects/Cherno/Cherno2D/Cherno2D", "Simple");
+	sphereDrawing.setShaderPath(".", "Simple");
 
 	while (!glfwWindowShouldClose(window))
 	{

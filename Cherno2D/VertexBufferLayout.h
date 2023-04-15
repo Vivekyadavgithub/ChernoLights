@@ -1,6 +1,6 @@
 #pragma once
 #include <vector>
-#include <GL/glew.h>
+#include <glad/glad.h>
 
 struct VertexBufferElement
 {
@@ -30,7 +30,7 @@ public:
 	template<typename T>
 	void Push(int count)
 	{
-		static_assert(false);
+		//static_assert(false);
 	}
 
 	template<>

@@ -66,6 +66,9 @@
     <ClCompile Include="SphereDrawing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Vendor\glad\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderer.h">
@@ -127,6 +130,12 @@
     </ClInclude>
     <ClInclude Include="SphereDrawing.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\glad\glad.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\glad\khrplatform.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
